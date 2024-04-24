@@ -1,6 +1,7 @@
 <x-layout title="Nova serie">
     <div class="container custom-container w-50 mx-auto">
-        <form>
+        <form action="/series/salvar" method="post">
+            @csrf
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome:</label>
                 <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome da serie">
