@@ -13,7 +13,7 @@
                 </ul>
                 <h2>Bem-vindo ao nosso Gerenciador de Séries!</h2>
                 <p>Estamos animados em apresentar uma ferramenta projetada para simplificar e aprimorar a sua experiência de assistir séries. Com nosso Gerenciador de Séries, você pode organizar suas séries favoritas, acompanhar seu progresso de visualização e descobrir novas histórias que se alinham com seus interesses.</p>
-                <p>Pronto para começar? <a href="#" class="btn btn-primary">Registre-se agora</a></p>
+                <p>Pronto para começar? <a href="/series/create" class="btn btn-primary">Cadastre uma serie</a></p>
             </div>
             <div class="col-md-6">
                 <img src="https://skytvassinaturas.com.br/wp-content/uploads/2021/11/serie.jpg" class="img-fluid" alt="Controlador de Séries">
