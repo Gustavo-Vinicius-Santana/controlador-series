@@ -5,7 +5,7 @@ use App\Http\Controllers\SeriesController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/series', [SeriesController::class, 'index']);
