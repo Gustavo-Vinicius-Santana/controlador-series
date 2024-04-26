@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Serie extends Model
 {
     use HasFactory;
+
+    // FILTRAGEM DA INSERÇÃO
+    protected $fillable = ['nome'];
 }

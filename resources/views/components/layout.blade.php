@@ -25,7 +25,7 @@
                         <a class="nav-link" href="/series">Lista</a>
                     </li>
                     <li class="nav-item me-3 fs-5">
-                        <a class="nav-link" href="/series/create">Cadastrar</a>
+                        <a class="nav-link" href="{{ route('series.create') }}">Cadastrar</a>
                     </li>
                 </ul>
             </nav>
