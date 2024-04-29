@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Serie;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SeriesFormRequest;
+
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class SeriesController extends Controller{
@@ -17,13 +19,13 @@ class SeriesController extends Controller{
         return view('series.index')->with('series', $series)->with('mensagemSucesso', $mensagemSucesso);
     }
 
-    // FUNÇÃO DE CADASTRO DE SERIE
+    // FUNÇÃO DE DIRECIONAMENTO PARA CADASTRO
     public function create(Request $request){
         return view('series.create');
     }
 
-    // FUNÇÃO DE INSERÇÃO DE SERIE
-    public function store(Request $request){
+    // FUNÇÃO DE CADASTRO DE SERIE
+    public function store(SeriesFormRequest $request){
         $serie = Serie::create($request->all());
 
         return to_route('series.index')
@@ -45,7 +47,7 @@ class SeriesController extends Controller{
     }
 
     // FUNÇÃO DE UPDATE
-    public function update(Serie $series, Request $request){
+    public function update(Serie $series, SeriesFormRequest $request){
         $series->nome = $request->nome;
         $series->save();
 

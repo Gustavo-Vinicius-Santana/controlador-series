@@ -1,8 +1,8 @@
 <form action="{{ $action }}" method="post">
     @csrf
-    @isset($nome)
+    @if(isset($id))
         @method('PUT')
-    @endisset
+    @endif
     <div class="mb-3">
         <label for="nome" class="form-label">Nome:</label>
         <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome da serie"
