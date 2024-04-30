@@ -31,28 +31,31 @@ class SeriesController extends Controller{
     // FUNÇÃO DE CADASTRO DE SERIE
     public function store(SeriesFormRequest $request)
     {
-        // dd($request->all());
-        $serie = Serie::create($request->all());
-        $seasons = [];
-        $episodes = [];
+        $serie = DB::transaction(function() use ($request){
+            $serie = Serie::create($request->all());
+            $seasons = [];
+            $episodes = [];
 
-        for($i = 1; $i <= $request->seasonQty; $i ++){
-            $seasons[] = [
-                'series_id' => $serie->id,
-                'number' => $i,
-            ];
-        }
-        Season::insert($seasons);
-
-        foreach($serie->season as $season){
-            for($j = 1; $j <= $request->episodesPerSeason; $j++){
-                $episodes[] = [
-                    'season_id' => $season->id,
-                    'number' => $j,
+            for($i = 1; $i <= $request->seasonQty; $i ++){
+                $seasons[] = [
+                    'series_id' => $serie->id,
+                    'number' => $i,
                 ];
             }
-        }
-        Episodes::insert($episodes);
+            Season::insert($seasons);
+
+            foreach($serie->seasons as $season){
+                for($j = 1; $j <= $request->episodesPerSeason; $j++){
+                    $episodes[] = [
+                        'season_id' => $season->id,
+                        'number' => $j,
+                    ];
+                }
+            }
+            Episodes::insert($episodes);
+
+            return $serie;
+        });
 
         return to_route('series.index')
             ->with('mensagem.sucesso', "serie '{$serie->nome}' cadastrada com sucesso!");
