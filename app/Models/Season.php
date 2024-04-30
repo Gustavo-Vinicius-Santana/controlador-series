@@ -16,6 +16,6 @@ class Season extends Model
 
     // RELACIONAMENTO ENTRE SERIES E EPISODIOS
     public function episodes(){
-        return $this->hasMany(Episode::class);
+        return $this->hasMany(Episodes::class);
     }
 }
