@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Episodes;
+use App\Models\Season;
 use App\Models\Serie;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesFormRequest;
@@ -29,19 +31,28 @@ class SeriesController extends Controller{
     // FUNÇÃO DE CADASTRO DE SERIE
     public function store(SeriesFormRequest $request)
     {
+        // dd($request->all());
         $serie = Serie::create($request->all());
+        $seasons = [];
+        $episodes = [];
 
         for($i = 1; $i <= $request->seasonQty; $i ++){
-            $serie->season()->create([
+            $seasons[] = [
+                'series_id' => $serie->id,
                 'number' => $i,
-            ]);
+            ];
+        }
+        Season::insert($seasons);
 
+        foreach($serie->season as $season){
             for($j = 1; $j <= $request->episodesPerSeason; $j++){
-                $season->episodes()->create([
+                $episodes[] = [
+                    'season_id' => $season->id,
                     'number' => $j,
-                ]);
+                ];
             }
         }
+        Episodes::insert($episodes);
 
         return to_route('series.index')
             ->with('mensagem.sucesso', "serie '{$serie->nome}' cadastrada com sucesso!");
