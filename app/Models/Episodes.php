@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Episodes extends Model
 {
     use HasFactory;
+    protected $fillable = ['number'];
+
     public $timetamps = false;
 
     public function season(){

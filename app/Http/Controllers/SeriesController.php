@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 class SeriesController extends Controller{
 
     // FUNÇÃO DE LISTAGEM
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $series = Serie::all();
         $mensagemSucesso = session('mensagem.sucesso');
 
@@ -20,20 +21,35 @@ class SeriesController extends Controller{
     }
 
     // FUNÇÃO DE DIRECIONAMENTO PARA CADASTRO
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         return view('series.create');
     }
 
     // FUNÇÃO DE CADASTRO DE SERIE
-    public function store(SeriesFormRequest $request){
+    public function store(SeriesFormRequest $request)
+    {
         $serie = Serie::create($request->all());
+
+        for($i = 1; $i <= $request->seasonQty; $i ++){
+            $serie->season()->create([
+                'number' => $i,
+            ]);
+
+            for($j = 1; $j <= $request->episodesPerSeason; $j++){
+                $season->episodes()->create([
+                    'number' => $j,
+                ]);
+            }
+        }
 
         return to_route('series.index')
             ->with('mensagem.sucesso', "serie '{$serie->nome}' cadastrada com sucesso!");
     }
 
     // FUNÇÃO DE DELETE DE UMA SERIE
-    public function destroy(Serie $serie, Request $request){
+    public function destroy(Serie $serie, Request $request)
+    {
         $serie->delete();
 
         return to_route('series.index')
@@ -41,13 +57,15 @@ class SeriesController extends Controller{
     }
 
     // FUNÇÃO EDIT DE UMA SERIE
-    public function edit(Serie $series){
+    public function edit(Serie $series)
+    {
         return view('series.edit')
             ->with('series', $series);
     }
 
     // FUNÇÃO DE UPDATE
-    public function update(Serie $series, SeriesFormRequest $request){
+    public function update(Serie $series, SeriesFormRequest $request)
+    {
         $series->nome = $request->nome;
         $series->save();
 
