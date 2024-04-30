@@ -8,10 +8,13 @@ use App\Models\Serie;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesFormRequest;
 
+use App\Repositories\SeriesRepository;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class SeriesController extends Controller{
+    public function __construct(private SeriesRepository $repository){}
 
     // FUNÇÃO DE LISTAGEM
     public function index(Request $request)
@@ -29,33 +32,9 @@ class SeriesController extends Controller{
     }
 
     // FUNÇÃO DE CADASTRO DE SERIE
-    public function store(SeriesFormRequest $request)
+    public function store(SeriesFormRequest $request, SeriesRepository $repository)
     {
-        $serie = DB::transaction(function() use ($request){
-            $serie = Serie::create($request->all());
-            $seasons = [];
-            $episodes = [];
-
-            for($i = 1; $i <= $request->seasonQty; $i ++){
-                $seasons[] = [
-                    'series_id' => $serie->id,
-                    'number' => $i,
-                ];
-            }
-            Season::insert($seasons);
-
-            foreach($serie->seasons as $season){
-                for($j = 1; $j <= $request->episodesPerSeason; $j++){
-                    $episodes[] = [
-                        'season_id' => $season->id,
-                        'number' => $j,
-                    ];
-                }
-            }
-            Episodes::insert($episodes);
-
-            return $serie;
-        });
+        $serie = $this->repository->add($request);
 
         return to_route('series.index')
             ->with('mensagem.sucesso', "serie '{$serie->nome}' cadastrada com sucesso!");
