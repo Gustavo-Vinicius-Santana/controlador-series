@@ -14,9 +14,11 @@ class Serie extends Model
     protected $fillable = ['nome'];
 
     // RELACIONAMENTO ENTRE SERIES E TEMPORADAS
-    public function temporadas(){
+    public function season(){
         return $this->hasMany(Season::class, 'series_id');
     }
+
+    // ORDENAÇÃO PADRÃO DE LISTAGEM DE SERIE
     protected static function booted(){
         self::addGlobalScope('ordered', function (Builder $queryBuilder){
             $queryBuilder->orderBy('nome');
