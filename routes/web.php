@@ -23,6 +23,4 @@ Route::get('/series/{series}/seasons', [SeasonsController::class, 'index'])->nam
 // ROTAS E METODOS RELACIONADOS A EPISODIOS
 Route::get('/seasons/{season}/episodes', [EpisodesController::class, 'index'])->name('episodes.index');
 
-Route::post('/seasons/{season}/episodes', function(\Illuminate\Http\Request $request){
-    dd($request->all());
-});
+Route::post('/seasons/{season}/episodes', [EpisodesController::class, 'update'])->name('episodes.update');

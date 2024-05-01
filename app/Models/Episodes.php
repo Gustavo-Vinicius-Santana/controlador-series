@@ -15,4 +15,6 @@ class Episodes extends Model
     public function season(){
         return $this->belongTo(Serie::class);
     }
+
+    public $timestamps = false;
 }
