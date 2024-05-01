@@ -7,8 +7,8 @@ use App\Models\Season;
 use App\Models\Serie;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesFormRequest;
-
 use App\Repositories\SeriesRepository;
+use App\Repositories\EloquentSeriesRepository;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
