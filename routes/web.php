@@ -6,6 +6,7 @@ use App\Http\Controllers\SeasonsController;
 use App\Http\Controllers\EpisodesController;
 use App\Http\Middleware\Autenticador;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UsersController;
 
 // ROTA INICIAL
 Route::get('/', function () {
@@ -31,3 +32,8 @@ Route::post('/seasons/{season}/episodes', [EpisodesController::class, 'update'])
 route::get('/login', [LoginController::class, 'index'])->name('login');
 
 route::post('/login', [LoginController::class, 'store'])->name('store');
+
+// ROTAS E METODOS RELACIONADOS A USUARIO
+route::get('/register', [UsersController::class, 'create'])->name('users.create');
+
+route::post('/register', [UsersController::class, 'store'])->name('users.store');
