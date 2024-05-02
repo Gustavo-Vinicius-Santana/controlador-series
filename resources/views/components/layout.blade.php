@@ -45,6 +45,14 @@
             </div>
         @endif
 
+        @isset($mensagemSucesso)
+            @if($mensagemSucesso != null)
+                <div class="alert alert-success">
+                    {{ $mensagemSucesso }}
+                </div>
+            @endif
+        @endisset
+
         {{ $slot }}
     </div>
 

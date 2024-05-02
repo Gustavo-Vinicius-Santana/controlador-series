@@ -17,7 +17,10 @@ class EpisodesController
 {
     // PAGINA DE EPISODIOS
     public function index(Season $season){
-        return view('episodes.index', ['episodes' => $season->episodes]);
+        return view('episodes.index', [
+            'episodes' => $season->episodes,
+            'mensagemSucesso' => session('mensagem.sucesso')
+        ]);
     }
 
     // MARCAR OU DESMARCAR EPISODIO
@@ -28,7 +31,8 @@ class EpisodesController
             $episode->save();
         });
 
-        return to_route('episodes.index', $season->id);
+        return to_route('episodes.index', $season->id)
+            ->with('mensagem.sucesso', 'Episodios marcados como assistidos');
 
     }
 }
