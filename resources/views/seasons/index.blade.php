@@ -7,7 +7,8 @@
                 </a>
 
                 <span class="badge bg-dark text-white">
-                    Episodios: {{ $season->episodes->count() }}
+                    Episodios:
+                    {{ $season->numberOfWatchedEpisodes()}} / {{$season->episodes->count() }}
                 </span>
 
             </li>
