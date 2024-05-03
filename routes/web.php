@@ -11,7 +11,7 @@ use App\Http\Controllers\UsersController;
 // ROTA INICIAL
 Route::get('/', function () {
     return view('home');
-})->middleware(Autenticador::class);
+});
 
 // ROTAS E METODOS RELACIONADOS AS SERIES
 Route::resource('/series', SeriesController::class)
@@ -33,7 +33,12 @@ route::get('/login', [LoginController::class, 'index'])->name('login');
 
 route::post('/login', [LoginController::class, 'store'])->name('store');
 
-// ROTAS E METODOS RELACIONADOS A USUARIO
+route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
+
+// ROTAS E METODOS RELACIONADOS Ao USUARIO
+route::get('/users', [UsersController::class, 'index'])->name('users.index')
+    ->middleware(Autenticador::class);
+
 route::get('/register', [UsersController::class, 'create'])->name('users.create');
 
 route::post('/register', [UsersController::class, 'store'])->name('users.store');

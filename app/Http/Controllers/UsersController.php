@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersController
 {
+    public function index(){
+        return view('users.index');
+    }
+
     public function create(){
         return view('users.create');
     }

@@ -22,10 +22,13 @@
                         <a class="nav-link" href="/">Início</a>
                     </li>
                     <li class="nav-item me-3 fs-5">
-                        <a class="nav-link" href="/series">Lista</a>
+                        <a class="nav-link" href="/series">Listar series</a>
                     </li>
                     <li class="nav-item me-3 fs-5">
-                        <a class="nav-link" href="{{ route('series.create') }}">Cadastrar</a>
+                        <a class="nav-link" href="{{ route('series.create') }}">Cadastrar series</a>
+                    </li>
+                    <li class="nav-item me-3 fs-5">
+                        <a class="nav-link" href="{{ route('users.index') }}">Usuario</a>
                     </li>
                 </ul>
             </nav>
