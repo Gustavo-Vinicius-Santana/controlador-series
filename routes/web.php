@@ -18,15 +18,23 @@ Route::resource('/series', SeriesController::class)
     ->except(['show']);
 
 Route::delete('/series/destroy/{serie}', [SeriesController::class, 'destroy'])
-    ->name('series.destroy');
+    ->name('series.destroy')
+    ->middleware(Autenticador::class);
 
-// ROTAS E METODOS RELACIONADOS A TEMPORADA
-Route::get('/series/{series}/seasons', [SeasonsController::class, 'index'])->name('seasons.index');
 
-// ROTAS E METODOS RELACIONADOS A EPISODIOS
-Route::get('/seasons/{season}/episodes', [EpisodesController::class, 'index'])->name('episodes.index');
 
-Route::post('/seasons/{season}/episodes', [EpisodesController::class, 'update'])->name('episodes.update');
+
+// ROTAS PROTEGIDAS
+Route::middleware(Autenticador::class)->group(function (){
+    // ROTAS E METODOS RELACIONADOS A TEMPORADA
+    Route::get('/series/{series}/seasons', [SeasonsController::class, 'index'])->name('seasons.index');
+
+    // ROTAS E METODOS RELACIONADOS A EPISODIOS
+    Route::get('/seasons/{season}/episodes', [EpisodesController::class, 'index'])->name('episodes.index');
+
+    Route::post('/seasons/{season}/episodes', [EpisodesController::class, 'update'])->name('episodes.update');
+});
+
 
 // ROTAS E METODOS RELACIONADOS A LOGIN
 route::get('/login', [LoginController::class, 'index'])->name('login');

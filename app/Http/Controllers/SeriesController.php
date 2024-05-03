@@ -9,12 +9,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesFormRequest;
 use App\Repositories\SeriesRepository;
 use App\Repositories\EloquentSeriesRepository;
+use App\Http\Middleware\Autenticador;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class SeriesController extends Controller{
-    public function __construct(private SeriesRepository $repository){}
+    public function __construct(private SeriesRepository $repository){
+        $this->middleware(Autenticador::class)->except('index');
+    }
 
     // FUNÇÃO DE LISTAGEM
     public function index(Request $request)
