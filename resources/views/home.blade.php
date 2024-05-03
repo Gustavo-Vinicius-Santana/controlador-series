@@ -16,7 +16,7 @@
                 <p>Pronto para começar? <a href="/series/create" class="btn btn-primary">Cadastre uma serie</a></p>
             </div>
             <div class="col-md-6">
-                <img src="https://skytvassinaturas.com.br/wp-content/uploads/2021/11/serie.jpg" class="img-fluid" alt="Controlador de Séries">
+                <img src="https://bibliotecasecretahome.files.wordpress.com/2022/06/40-series-de-epoca.png" class="img-fluid" alt="Controlador de Séries">
             </div>
         </div>
 
