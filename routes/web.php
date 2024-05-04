@@ -8,6 +8,10 @@ use App\Http\Middleware\Autenticador;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsersController;
 
+use App\Mail\SeriesCreated;
+use Illuminate\Support\Facades\Mail;
+
+
 // ROTA INICIAL
 Route::get('/', function () {
     return view('home');
@@ -50,3 +54,15 @@ route::get('/users', [UsersController::class, 'index'])->name('users.index')
 route::get('/register', [UsersController::class, 'create'])->name('users.create');
 
 route::post('/register', [UsersController::class, 'store'])->name('users.store');
+
+// ROTA DE TESTE DE E-MAIL
+Route::get('/email', function (){ 
+    return new SeriesCreated(
+        nomeSerie: 'Serie de teste',
+        idSerie: 1,
+        qtdTemporadas: 5,
+        episodiosPorTemporada: 10
+    );
+});
+
+// Route::get('/email', [SeriesCreated::class, 'build']);
