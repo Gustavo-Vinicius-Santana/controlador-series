@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Episodes;
 use App\Models\Season;
 use App\Models\Serie;
+use App\Models\User;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesFormRequest;
 use App\Repositories\SeriesRepository;
@@ -43,13 +45,18 @@ class SeriesController extends Controller{
     {
         $serie = $this->repository->add($request);
 
-        $email = new SeriesCreated(
-            $serie->nome,
-            $serie->id,
-            $request->seasonQty,
-            $request->episodesPerSeason
-        );
-        Mail::to($request->user())->send($email);
+        $userList = User::all();
+        foreach ($userList as $user){
+            $email = new SeriesCreated(
+                $serie->nome,
+                $serie->id,
+                $request->seasonQty,
+                $request->episodesPerSeason
+            );
+            Mail::to($user)->send($email);
+            sleep(2);
+        }
+
 
         return to_route('series.index')
             ->with('mensagem.sucesso', "serie '{$serie->nome}' cadastrada com sucesso!");
