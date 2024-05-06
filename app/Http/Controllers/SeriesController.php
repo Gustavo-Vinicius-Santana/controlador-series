@@ -45,20 +45,6 @@ class SeriesController extends Controller{
     {
         $serie = $this->repository->add($request);
 
-        $userList = User::all();
-        foreach ($userList as $index => $user){
-            $email = new SeriesCreated(
-                $serie->nome,
-                $serie->id,
-                $request->seasonQty,
-                $request->episodesPerSeason
-            );
-            $when = now()->addSeconds($index * 10);
-            Mail::to($user)->later($when ,$email);
-            // sleep(2);
-        }
-
-
         return to_route('series.index')
             ->with('mensagem.sucesso', "serie '{$serie->nome}' cadastrada com sucesso!");
     }
