@@ -56,7 +56,7 @@ route::get('/register', [UsersController::class, 'create'])->name('users.create'
 route::post('/register', [UsersController::class, 'store'])->name('users.store');
 
 // ROTA DE TESTE DE E-MAIL
-Route::get('/email', function (){ 
+Route::get('/email', function (){
     return new SeriesCreated(
         nomeSerie: 'Serie de teste',
         idSerie: 1,

@@ -12,7 +12,11 @@ use App\Repositories\EloquentSeriesRepository;
 use App\Http\Middleware\Autenticador;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SeriesCreated;
 use Illuminate\Http\Request;
+
+
 
 class SeriesController extends Controller{
     public function __construct(private SeriesRepository $repository){
@@ -38,6 +42,14 @@ class SeriesController extends Controller{
     public function store(SeriesFormRequest $request, SeriesRepository $repository)
     {
         $serie = $this->repository->add($request);
+
+        $email = new SeriesCreated(
+            $serie->nome,
+            $serie->id,
+            $request->seasonQty,
+            $request->episodesPerSeason
+        );
+        Mail::to($request->user())->send($email);
 
         return to_route('series.index')
             ->with('mensagem.sucesso', "serie '{$serie->nome}' cadastrada com sucesso!");
