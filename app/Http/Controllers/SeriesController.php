@@ -14,6 +14,7 @@ use App\Repositories\EloquentSeriesRepository;
 use App\Http\Middleware\Autenticador;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SeriesCreated;
 use Illuminate\Http\Request;
@@ -62,6 +63,10 @@ class SeriesController extends Controller{
     // FUNÇÃO DE DELETE DE UMA SERIE
     public function destroy(Serie $serie, Request $request)
     {
+        if($serie->cover_path != null){
+            Storage::disk('public')->delete($serie->cover_path);
+        }
+
         $serie->delete();
 
         return to_route('series.index')
