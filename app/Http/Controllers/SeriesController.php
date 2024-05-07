@@ -43,9 +43,11 @@ class SeriesController extends Controller{
     // FUNÇÃO DE CADASTRO DE SERIE
     public function store(SeriesFormRequest $request, SeriesRepository $repository)
     {
-        $coverPath = $request->file('cover')
-        ->store('series_cover', 'public');
-        $request->coverPath = $coverPath;
+        if($request->file('cover') != null){
+            $coverPath = $request->file('cover')
+            ->store('series_cover', 'public');
+            $request->coverPath = $coverPath;
+        }
 
         $serie = $this->repository->add($request);
 
