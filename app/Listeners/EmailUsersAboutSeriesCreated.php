@@ -22,15 +22,15 @@ class EmailUsersAboutSeriesCreated
     /**
      * Handle the event.
      */
-    public function handle(object $event): void
+    public function handle(\App\Events\SeriesCreated $event): void
     {
         $userList = User::all();
         foreach ($userList as $index => $user){
             $email = new SeriesCreated(
-                $serie->nome,
-                $serie->id,
-                $request->seasonQty,
-                $request->episodesPerSeason
+                $event->seriesName,
+                $event->seriesId,
+                $event->seriesSeasonQty,
+                $event->episodesPerSeason
             );
             $when = now()->addSeconds($index * 10);
             Mail::to($user)->later($when ,$email);

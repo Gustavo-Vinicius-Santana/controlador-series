@@ -19,7 +19,6 @@ use App\Mail\SeriesCreated;
 use Illuminate\Http\Request;
 
 
-
 class SeriesController extends Controller{
     public function __construct(private SeriesRepository $repository){
         $this->middleware(Autenticador::class)->except('index');
@@ -44,6 +43,13 @@ class SeriesController extends Controller{
     public function store(SeriesFormRequest $request, SeriesRepository $repository)
     {
         $serie = $this->repository->add($request);
+
+        \App\Events\SeriesCreated::dispatch(
+            $serie->nome,
+            $serie->id,
+            $request->seasonQty,
+            $request->episodesPerSeason
+        );
 
         return to_route('series.index')
             ->with('mensagem.sucesso', "serie '{$serie->nome}' cadastrada com sucesso!");
