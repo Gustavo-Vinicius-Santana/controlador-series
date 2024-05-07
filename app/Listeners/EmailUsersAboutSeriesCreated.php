@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SeriesCreated;
 
-class EmailUsersAboutSeriesCreated
+class EmailUsersAboutSeriesCreated implements ShouldQueue
 {
     /**
      * Create the event listener.
