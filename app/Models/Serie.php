@@ -11,7 +11,7 @@ class Serie extends Model
     use HasFactory;
 
     // FILTRAGEM DA INSERÇÃO
-    protected $fillable = ['nome'];
+    protected $fillable = ['nome', 'cover'];
 
     // RELACIONAMENTO ENTRE SERIES E TEMPORADAS
     public function seasons(){
