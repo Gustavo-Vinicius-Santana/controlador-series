@@ -14,6 +14,6 @@ class SeriesControllerApi extends Controller
     }
 
     public function store(SeriesFormRequest $request){
-        dd($request->all());
+        return response()->json($serie = Series::create($request->all()), 201);
     }
 }
