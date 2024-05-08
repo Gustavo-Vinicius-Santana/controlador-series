@@ -8,5 +8,5 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-// ENDPOINT QUE RETORNA TODAS AS SERIES
-Route::get('/series', [SeriesControllerApi::class, 'index']);
+// ROTAS DA API
+Route::apiResource('/series', SeriesControllerApi::class);
