@@ -11,6 +11,9 @@ class Episodes extends Model
 {
     use HasFactory;
     protected $fillable = ['number'];
+    protected $casts = [
+        'watched' => 'boolean'
+    ];
 
     public $timetamps = false;
 
