@@ -23,10 +23,12 @@ class SeriesControllerApi extends Controller
     }
 
     public function show(int $serie){
-        $serie = Serie::whereId($serie)
-        ->with('seasons.episodes')
-        ->get();
-        return $serie;
+        $seriesModel = Serie::with('seasons.episodes')->find($serie);
+        if($seriesModel === null){
+            return response()->json(['message' => 'series not found'], 404);
+
+        }
+        return $seriesModel;
     }
 
     public function update(int $serie, SeriesFormRequest $request){
