@@ -18,6 +18,11 @@ class Serie extends Model
         return $this->hasMany(Season::class, 'series_id');
     }
 
+    // RELACIONAMENTO ENTRE SERIES EPISODIOS
+    public function episodes(){
+        return $this->hasManyThrough(Episodes::class, Season::class, 'series_id', 'season_id');
+    }
+
     // ORDENAÇÃO PADRÃO DE LISTAGEM DE SERIE
     protected static function booted(){
         self::addGlobalScope('ordered', function (Builder $queryBuilder){

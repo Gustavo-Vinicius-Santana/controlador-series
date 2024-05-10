@@ -8,15 +8,10 @@ use App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Serie;
 
-class SeasonsControllerApi extends Controller
+class EpisodesControllerApi extends Controller
 {
-    public function __construct(private SeriesRepository $seriesRepository)
-    {
-    }
-
+    // METODO DE MOSTRAR TODOS OS EPISODIOS
     public function index(Serie $series){
-        // METODO DE MOSTRAR TODAS AS TEMPORADAS
-        return $series->seasons;
+        return $series->episodes;
     }
-
 }
