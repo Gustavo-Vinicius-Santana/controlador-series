@@ -21,13 +21,6 @@ class Episodes extends Model
         return $this->belongTo(Serie::class);
     }
 
-    protected function watched(): Attribute{
-        return new Attribute(
-            get: fn($watched) => (bool) $watched,
-            set: fn($watched) => (bool) $watched
-        );
-
-    }
 
     public $timestamps = false;
 }
