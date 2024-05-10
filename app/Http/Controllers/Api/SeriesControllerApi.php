@@ -23,7 +23,22 @@ class SeriesControllerApi extends Controller
     }
 
     public function show(int $serie){
-        $serie = Serie::find($serie)->with('seasons.episodes')->get();
+        $serie = Serie::whereId($serie)
+        ->with('seasons.episodes')
+        ->get();
         return $serie;
+    }
+
+    public function update(Serie $serie, SeriesFormRequest $request){
+        $serie->fill($request->all());
+        $serie->save();
+
+        return $serie;
+    }
+
+    public function destroy(Serie $serie){
+        $serie::destroy($serie);
+
+        return response()->noContent();
     }
 }
