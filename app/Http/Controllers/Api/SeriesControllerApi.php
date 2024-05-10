@@ -23,7 +23,7 @@ class SeriesControllerApi extends Controller
     }
 
     public function show(int $serie){
-        $serie = Serie::with('seasons')->get();
+        $serie = Serie::find($serie)->with('seasons.episodes')->get();
         return $serie;
     }
 }
