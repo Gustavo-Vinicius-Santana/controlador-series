@@ -29,15 +29,15 @@ class SeriesControllerApi extends Controller
         return $serie;
     }
 
-    public function update(Serie $serie, SeriesFormRequest $request){
-        $serie->fill($request->all());
-        $serie->save();
+    public function update(int $serie, SeriesFormRequest $request){
+        Serie::where('id', $serie)->update($request->all());
 
         return $serie;
     }
 
     public function destroy(int $serie){
         Serie::destroy($serie);
-        return 'deu certo';
+
+        return response()->noContent();
     }
 }
