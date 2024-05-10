@@ -16,11 +16,12 @@ class SeriesControllerApi extends Controller
     }
 
     public function index(Request $request){
-        if(!$request->has('nome')){
-            return Serie::all();
+        $query = Serie::query();
+        if($request->has('nome')){
+            $query->where('nome', $request->nome);
         }
 
-        return Serie::whereNome($request->nome)->get();
+        return $query->get();
     }
 
     public function store(SeriesFormRequest $request){
