@@ -10,10 +10,14 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-// ROTAS DO CRUD DA API
+// CRUD DA API
 Route::apiResource('/series', SeriesControllerApi::class);
 
-// ROTA PARA MOSTRAR TEMPORADAS
+// MOSTRAR TEMPORADAS
 Route::get('/series/{series}/seasons', [SeasonsControllerApi::class, 'index']);
 
+// MOSTRAR EPISODIOS
 Route::get('/series/{series}/episodes', [EpisodesControllerApi::class, 'index']);
+
+// MARCAR EPISODIO COMO MARCADO
+Route::patch('/episodes/{episode}', [EpisodesControllerApi::class, 'update']);
