@@ -36,9 +36,8 @@ class SeriesControllerApi extends Controller
         return $serie;
     }
 
-    public function destroy(Serie $serie){
-        $serie::destroy($serie);
-
-        return response()->noContent();
+    public function destroy(int $serie){
+        Serie::destroy($serie);
+        return 'deu certo';
     }
 }
