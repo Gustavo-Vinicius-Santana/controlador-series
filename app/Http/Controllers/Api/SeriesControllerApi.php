@@ -2,18 +2,28 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Repositories\SeriesRepository;
 use App\Http\Requests\SeriesFormRequest;
 use App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
-use App\Models\Serie; 
+use App\Models\Serie;
 
 class SeriesControllerApi extends Controller
 {
+    public function __construct(private SeriesRepository $seriesRepository)
+    {
+    }
+
     public function index(){
         return Serie::all();
     }
 
     public function store(SeriesFormRequest $request){
-        return response()->json($serie = Series::create($request->all()), 201);
+        return response()->json($this->seriesRepository->add($request), 201);
+    }
+
+    public function show(int $serie){
+        $serie = Serie::with('seasons')->get();
+        return $serie;
     }
 }
