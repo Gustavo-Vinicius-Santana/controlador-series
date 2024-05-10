@@ -21,7 +21,7 @@ class SeriesControllerApi extends Controller
             $query->where('nome', $request->nome);
         }
 
-        return $query->get();
+        return $query->paginate(5);
     }
 
     public function store(SeriesFormRequest $request){
