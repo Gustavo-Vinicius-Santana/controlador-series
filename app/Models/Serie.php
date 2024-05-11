@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use illuminate\Database\Eloquent\Builder;
@@ -10,6 +11,8 @@ class Serie extends Model
 {
     use HasFactory;
 
+    // APPENDS DOS LINKS DE NAVEGAÇÃO
+    protected $appends = ['links'];
     // FILTRAGEM DA INSERÇÃO
     protected $fillable = ['nome', 'cover_path'];
 
@@ -28,5 +31,25 @@ class Serie extends Model
         self::addGlobalScope('ordered', function (Builder $queryBuilder){
             $queryBuilder->orderBy('nome');
         });
+    }
+
+    public function links(): Attribute{
+        return new Attribute(
+            get: fn () => [
+                [
+                    'rel' => 'self',
+                    'url' => "/api/series/{$this->id}",
+                ],
+                [
+                    'rel' => 'seasons',
+                    'url' => "/api/series/{$this->id}/seasons",
+                ],
+                [
+                    'rel' => 'episodes',
+                    'url' => "/api/series/{$this->id}/episodes",
+                ]
+            ],
+        );
+
     }
 }
