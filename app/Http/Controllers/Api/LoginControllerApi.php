@@ -21,7 +21,10 @@ class LoginControllerApi extends Controller
         if(Auth::attempt($credentials) === false){
             return response()->json('Unauthorized', 401);
         }
+
         $user = Auth::user();
-        dd($user);
+        $token = $user->createToken('token');
+
+        return response()->json($token->plainTextToken);
     }
 }
