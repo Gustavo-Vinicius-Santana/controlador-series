@@ -11,17 +11,17 @@ use App\Models\Episodes;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class LoginControllerApi extends Controller
 {
     public function index(Request $request){
         $credentials = $request->only(['email', 'password']);
 
-        $user = User::whereEmail($credentials['email'])->first();
-
-        if($user === null || Hash::check($credentials['password'], $user->password) === false){
+        if(Auth::attempt($credentials) === false){
             return response()->json('Unauthorized', 401);
         }
+        $user = Auth::user();
         dd($user);
     }
 }
